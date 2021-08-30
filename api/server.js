@@ -10,6 +10,23 @@ server.get('/', (req, res) => {
     res.status(200).json({ message: 'hello world'})
 })
 
+server.post('/api/users', (req, res) => {
+    const newUser = req.body
+    // console.log(newUser)
+    if(!newUser.name || !newUser.bio) {
+        res.status(400).json({ message: "Please provide name and bio for the user" })
+    } else {
+        User.insert(newUser)
+            .then(user => {
+                res.status(201).json(user)
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(500).json({ message: "There was an error while saving the user to the database" })
+            })
+    }
+})
+
 server.get('/api/users', (req, res) => {
     User.find()
         .then(users => {
@@ -19,7 +36,7 @@ server.get('/api/users', (req, res) => {
         })
         .catch(err => {
             console.log(err)
-            res.status(500).json({ message: "The users information could not be retrieved"})
+            res.status(500).json({ message: "The users information could not be retrieved" })
         })
 })
 
