@@ -55,6 +55,16 @@ server.get('/api/users/:id', (req, res) => {
         })
 })
 
+// server.delete('api/users/:id', async (req, res) => {
+//     const possibleUser = await User.findById(req.params.id)
+//     if (!possibleUser) {
+//         res.status(404).json({ message: "The user with the specified ID does not exist" })
+//     } else {
+//         const deletedUser = await User.remove(possibleUser.id)
+//         res.json(deletedUser)
+//     }
+// })
+
 server.delete('/api/users/:id', (req, res) => {
     User.remove(req.params.id)
         .then(user => {
@@ -70,5 +80,7 @@ server.delete('/api/users/:id', (req, res) => {
         })
     // res.json({ message: 'delete user of this id' })
 })
+
+// server.put('/api/users/:id', async )
 
 module.exports = server; // EXPORT YOUR SERVER instead of {}
